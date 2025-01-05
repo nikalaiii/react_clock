@@ -16,10 +16,9 @@ export class App extends React.Component {
   timerId: number | undefined;
 
   componentDidMount() {
-    // Створюємо таймер для оновлення імені кожні 3300 мс
     this.timerId = window.setInterval(() => {
       this.setState({
-        clockName: getRandomName(), // Оновлюємо clockName
+        clockName: getRandomName(),
       });
     }, 3300);
     const checkClick = document.addEventListener('click', () => this.setState({hasClock: true}))
@@ -27,7 +26,6 @@ export class App extends React.Component {
   }
 
   componentWillUnmount() {
-    // Очищаємо таймер, коли компонент буде розмонтовано
     if (this.timerId) {
       window.clearInterval(this.timerId);
     }

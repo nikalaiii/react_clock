@@ -20,8 +20,6 @@ export class Clock extends React.Component<Props, State> {
   componentDidMount(): void {
     this.timerId = window.setInterval(() => {
       this.setState({ today: new Date() });
-      // Форматуємо дату, щоб вона відповідала формату тесту
-      console.log(this.state.today.toLocaleTimeString());
     }, 1000);
   }
 
@@ -29,6 +27,8 @@ export class Clock extends React.Component<Props, State> {
     if (prevState.clockName !== this.state.clockName) {
       console.warn(`Renamed from ${prevState.clockName} to ${this.state.clockName}`);
     }
+
+    console.log(this.state.today.toUTCString().slice(-12, -4));
   }
 
   componentWillUnmount(): void {
@@ -36,9 +36,15 @@ export class Clock extends React.Component<Props, State> {
   }
 
   render() {
+    const { clockName } = this.props;
+
+    if (clockName !== this.state.clockName) {
+      this.setState({ clockName });
+    }
+
     return (
       <div className="Clock">
-        <strong className="Clock__name">{this.props.clockName}</strong>
+        <strong className="Clock__name">{this.state.clockName}</strong>
         {' time is '}
         <span className="Clock__time">
           {this.state.today.toUTCString().slice(-12, -4)}
