@@ -1,18 +1,15 @@
 import React from 'react';
-
 type State = {
   today: Date;
   clockName: string;
 };
-
 type Props = {
   clockName: string;
 };
-
 export class Clock extends React.Component<Props, State> {
   state: State = {
     today: new Date(),
-    clockName: 'Clock-0',
+    clockName: this.props.clockName,
   };
 
   timerId: number | undefined;
@@ -24,6 +21,10 @@ export class Clock extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
+    if (prevProps.clockName !== this.props.clockName) {
+      this.setState({ clockName: this.props.clockName });
+    }
+
     if (prevState.clockName !== this.state.clockName) {
       // eslint-disable-next-line no-console
       console.warn(
@@ -40,12 +41,6 @@ export class Clock extends React.Component<Props, State> {
   }
 
   render() {
-    const { clockName } = this.props;
-
-    if (clockName !== this.state.clockName) {
-      this.setState({ clockName });
-    }
-
     return (
       <div className="Clock">
         <strong className="Clock__name">{this.state.clockName}</strong>
