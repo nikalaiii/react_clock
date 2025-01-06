@@ -4,6 +4,7 @@ import { Clock } from './Clock';
 
 function getRandomName(): string {
   const value = Date.now().toString().slice(-4);
+
   return `Clock-${value}`;
 }
 
@@ -21,8 +22,12 @@ export class App extends React.Component {
         clockName: getRandomName(),
       });
     }, 3300);
-    const checkClick = document.addEventListener('click', () => this.setState({hasClock: true}))
-    const checkContext = document.addEventListener('contextmenu', () => this.setState({hasClock: false}))
+
+    document.addEventListener('click', () => this.setState({ hasClock: true }));
+
+    document.addEventListener('contextmenu', () =>
+      this.setState({ hasClock: false }),
+    );
   }
 
   componentWillUnmount() {
@@ -41,5 +46,3 @@ export class App extends React.Component {
     );
   }
 }
-
-

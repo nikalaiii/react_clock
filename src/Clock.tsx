@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type State = {
   today: Date;
@@ -25,9 +25,13 @@ export class Clock extends React.Component<Props, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State): void {
     if (prevState.clockName !== this.state.clockName) {
-      console.warn(`Renamed from ${prevState.clockName} to ${this.state.clockName}`);
+      // eslint-disable-next-line no-console
+      console.warn(
+        `Renamed from ${prevState.clockName} to ${this.state.clockName}`,
+      );
     }
 
+    // eslint-disable-next-line no-console
     console.log(this.state.today.toUTCString().slice(-12, -4));
   }
 
